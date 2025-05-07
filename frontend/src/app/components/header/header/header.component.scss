@@ -1,0 +1,20 @@
+@use '@angular/material' as mat;
+
+
+mat-toolbar {
+  @include mat.toolbar-overrides((
+    container-background-color: #022332,
+    container-text-color: #fdfdfd,
+  ));
+}
+
+
+mat-toolbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  h1 {
+    font-weight: bold;
+  }
+}

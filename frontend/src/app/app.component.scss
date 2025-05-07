@@ -1,0 +1,17 @@
+.container {
+    width: auto;
+    height: 100vh;
+    background: #edebeb;
+    color: #06516E;
+
+    mat-drawer {
+        padding: 20px 40px 40px 20px;
+        border-radius: 0;
+        background-color: #06516E;
+        color: #edebeb;
+    }
+
+    mat-drawer-content {
+        padding: 50px;
+    }
+}

@@ -1,0 +1,69 @@
+<h2>Voyages</h2>
+
+<mat-form-field class="filter-field">
+  <mat-label>Filter</mat-label>
+  <input matInput placeholder="Search voyages..." (keyup)="applyFilter($event)">
+</mat-form-field>
+
+<div *ngIf="isLoading$ | async" class="loading-spinner">
+  <mat-spinner></mat-spinner>
+</div>
+
+<div *ngIf="error$ | async as error" class="error">
+  <p>Error: {{ error }}</p>
+</div>
+
+<table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 voyage-table"
+  *ngIf="(isLoading$ | async) === false && dataSource.data.length; else noVoyages">
+  <ng-container matColumnDef="id">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
+    <td mat-cell *matCellDef="let voyage">{{ voyage.id }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="shipName">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Ship</th>
+    <td mat-cell *matCellDef="let voyage">{{ voyage.shipName || 'Unknown Ship' }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="shipMaxSpeed">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Max Speed (knots)</th>
+    <td mat-cell *matCellDef="let voyage">{{ voyage.shipMaxSpeed || 'N/A' }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="departurePortName">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Departure Port</th>
+    <td mat-cell *matCellDef="let voyage">{{ voyage.departurePortName || 'Unknown Port' }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="departureCountryName">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Departure Country</th>
+    <td mat-cell *matCellDef="let voyage">{{ voyage.departureCountryName || 'Unknown Country' }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="arrivalPortName">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Arrival Port</th>
+    <td mat-cell *matCellDef="let voyage">{{ voyage.arrivalPortName || 'Unknown Port' }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="arrivalCountryName">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Arrival Country</th>
+    <td mat-cell *matCellDef="let voyage">{{ voyage.arrivalCountryName || 'Unknown Country' }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="startTimestamp">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Start</th>
+    <td mat-cell *matCellDef="let voyage">{{ voyage.startTimestamp | date: 'short' }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="endTimestamp">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>End</th>
+    <td mat-cell *matCellDef="let voyage">{{ voyage.endTimestamp | date: 'short' }}</td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+
+<ng-template #noVoyages>
+  <p *ngIf="(isLoading$ | async) === false">No voyages found.</p>
+</ng-template>

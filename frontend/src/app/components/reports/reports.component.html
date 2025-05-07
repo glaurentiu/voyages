@@ -1,0 +1,19 @@
+<div class="report">
+    <h2>Visited Countries Last Year</h2>
+    <div *ngIf="loading$ | async; else chart">
+      <p>Loading...</p>
+    </div>
+    <ng-template #chart>
+      <div *ngIf="error$ | async as error; else showChart">
+        <p>Error: {{ error }}</p>
+      </div>
+      <ng-template #showChart>
+        <canvas
+          baseChart
+          [data]="barChartData"
+          [options]="barChartOptions"
+          [type]="barChartType"
+        ></canvas>
+      </ng-template>
+    </ng-template>
+  </div>
